@@ -1,13 +1,16 @@
 name: Build
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 jobs:
   apk:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare project
+        run: |
+          if [ -f kashif-project.zip ]; then unzip -o kashif-project.zip -x ".github/*"; fi
+          ls -la
+          test -f settings.gradle.kts
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
